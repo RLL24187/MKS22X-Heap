@@ -14,17 +14,17 @@ public class MyHeap{
     return height;
   }
   private static void pushDown(int[]data,int size,int index){
-    //finding height of the tree
+    //finding bound of the tree
     int s = size;
-    int height = 0;
+    //int height = 0;
     int bound = 1;
     while (s>0){
-      height++;
+      //height++;
       s /= 2;
       bound *= 2;
     }
     bound = bound/2 - 2 ;
-    System.out.println(bound);
+    //System.out.println(bound);
     //while(index<= bound){
 
     //}
