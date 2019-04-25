@@ -5,8 +5,30 @@ public class MyHeap{
   left child: 2n+1
   right child: 2n+2
   */
+  private static int height(int size){
+    int height = 0;
+    while (size>0){
+      height++;
+      size /= 2;
+    }
+    return height;
+  }
   private static void pushDown(int[]data,int size,int index){
+    //finding height of the tree
+    int s = size;
+    int height = 0;
+    int bound = 1;
+    while (s>0){
+      height++;
+      s /= 2;
+      bound *= 2;
+    }
+    bound = bound/2 - 2 ;
+    System.out.println(bound);
+    //while(index<= bound){
 
+    //}
+    //while(index<size
   }
   /*
     - size  is the number of elements in the data array.
@@ -26,7 +48,7 @@ public class MyHeap{
         index = (index-1)/2; //change the index to parent
         //System.out.println("Index: "+index);
       }
-      else index = 0; //stops the loop
+      else return; //stops the loop
     }
   }
   /*
@@ -58,6 +80,10 @@ public class MyHeap{
       pushUp(a1, pushUpTests[i]);
       System.out.println(HeapHelp.toString(a1));
     }
+    System.out.println("Testing height(size)");
+    System.out.println(height(a1.length));
+    System.out.println("Testing pushDown");
+    pushDown(a1, 14, 5);
   }
 }
 
@@ -70,5 +96,17 @@ public class MyHeap{
         8     17      6     1
       /  \   /  \   /  \   /  \
      6   3  19  0   1  7 -9   --
+
+*/
+//index tree
+/*
+                   0
+              /         \
+            1            2          last index in a row: 2^height - 2
+          /   \        /   \
+        3      4      5     6
+      /  \   /  \   /  \   /  \
+     7   8  9   10 11  12 13  14
+
 
 */
