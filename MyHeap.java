@@ -13,6 +13,15 @@ public class MyHeap{
     }
     return height;
   }
+
+  private static int exp(int base, int expt){
+    int temp = 1;
+    for (int i = expt; i > 0; i--){
+      temp *= base;
+    }
+    return temp;
+  }
+
   private static void pushDown(int[]data,int size,int index){
     //storing indices
     int left = (2*index) + 1;
@@ -79,12 +88,18 @@ public class MyHeap{
     }
   }
   /*
-    - push the element at index i up into the correct position. This will swap it with the parent node until the parent node is larger or the root is reached. [ should be O(logn) ]
+    - push the element at index i up into the correct position.
+      This will swap it with the parent node until the parent node is larger or the root is reached.
+      [ should be O(logn) ]
     - precondition: index is between 0 and data.length-1 inclusive.
   */
 
   public static void heapify(int[] data){
-
+    int bound = height((data.length) - 1);
+    //only need to pushDown the second to last, then third to last, and so on until you get to the top
+    //for (int i = height; i < data.length; i++){
+    //  pushUp()
+    //}
   }
   //    - convert the array into a valid heap. [ should be O(n) ]
 
@@ -124,6 +139,11 @@ public class MyHeap{
       pushDown(a1, a1.length, pushDownTests[i]);
       System.out.println(HeapHelp.toString(a1)+"\n");
     }
+
+    System.out.println("\n\n-------Testing exp-------");
+    System.out.println(exp(2, 4));//16
+    System.out.println(exp(3, 3));//27
+    System.out.println(exp(9, 0));//1
   }
 }
 
