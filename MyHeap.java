@@ -1,3 +1,4 @@
+import java.util.Random;
 public class MyHeap{
   //important notes
   /*
@@ -26,32 +27,44 @@ public class MyHeap{
     //storing indices
     int left = (2*index) + 1;
     int right = (2*index) + 2;
-    System.out.println("Size: "+size);
+    //System.out.println("Size: "+size);
     //System.out.println("data[left]: "+data[left]);
     //System.out.println("data[right]: "+data[right]);
-    System.out.println("Left: "+left);
-    System.out.println("Right: "+right);
-    System.out.println("Index: "+index);
-    System.out.println("data[index]: "+data[index]);
+    //System.out.println("Left: "+left);
+    //System.out.println("Right: "+right);
+    System.out.println("\nIndex: "+index);
+    //System.out.println("data[index]: "+data[index]);
     //check if parent is a leaf
     if (left >= size){
-      System.out.println("out of bounds: left");
+      System.out.println("out of bounds: left\n");
       return;
     }
     //case 1: left greater than parent
     //System.out.println(left);
     //System.out.println(size);
-    if (data[left] > data[index]){
+    else if (data[left] > data[index]){
       System.out.println("left greater than parent\n");
-      int temp = data[left];
-      data[left] = data[index];
-      data[index] = temp;
-      System.out.println(HeapHelp.toString(data)+"\n");
-      pushDown(data, size, left);
+      //case 1a: RIGHT IS NONEXISTENT OR LEFT IS GREATER OR EQUAL TO RIGHT
+      if (right >= size || data[left]>=data[right]){
+        int temp = data[left];
+        data[left] = data[index];
+        data[index] = temp;
+        System.out.println(HeapHelp.toString(data)+"\n");
+        pushDown(data, size, left);
+      }
+      //case 1b: RIGHT IS GREATER THAN ORTO LEFT
+      else{
+        System.out.println("right and left greater than parent, right > left");
+        int temp = data[right];
+        data[right] = data[index];
+        data[index] = temp;
+        System.out.println(HeapHelp.toString(data)+"\n");
+        pushDown(data, size, right);
+      }
     }
     //case 2: right is nonexistent
     else if (right >= size){
-      System.out.println("out of bounds: right");
+      System.out.println("out of bounds: right\n");
       return;
     }
     //case 3: right is greater than parent
@@ -64,7 +77,9 @@ public class MyHeap{
       pushDown(data, size, right);
     }
     //case 4: none are greater than parent
-    System.out.println("none are greater than parent");
+    else{
+      System.out.println("none are greater than parent\n");
+    }
   }
   /*
     - size  is the number of elements in the data array.
@@ -95,11 +110,11 @@ public class MyHeap{
   */
 
   public static void heapify(int[] data){
-    int bound = height((data.length) - 1);
+    int bound = exp(2, height(data.length) - 1) - 2;
     //only need to pushDown the second to last, then third to last, and so on until you get to the top
-    //for (int i = height; i < data.length; i++){
-    //  pushUp()
-    //}
+    for (int i = bound; i >= 0; i--){
+      pushDown(data, data.length, i);
+    }
   }
   //    - convert the array into a valid heap. [ should be O(n) ]
 
@@ -112,6 +127,7 @@ public class MyHeap{
     int[] a1 = {24, 9, 4, 8, 17, 6, 11, 6, 3, 19, 0, 1, 7, 39};
     //          0   1  2  3  4   5  6  7  8  9  10 11 12  13
     //length 14
+/*
     System.out.println("Indices tree: ");
     System.out.println(HeapHelp.toString(indices));
     System.out.println("\na1:");
@@ -123,6 +139,7 @@ public class MyHeap{
       pushUp(a1, pushUpTests[i]);
       System.out.println(HeapHelp.toString(a1));
     }
+*/
     // edited a1
     //39. 19, 24, 8, 17, 4, 6, 6, 3, 9, 0, 1, 7, 11
     //0   1   2   3  4   5  6  7  8  9  10 11 12 13
@@ -131,7 +148,7 @@ public class MyHeap{
     System.out.println("\n\n-------Testing height(size)-------");
     System.out.println(height(a1.length));
 */
-
+/*
     System.out.println("\n\n-------Testing pushDown-------");
     int[] pushDownTests = {5, 1, 3, 13, 6, 6};
     for (int i = 0; i < pushDownTests.length; i++){
@@ -139,11 +156,39 @@ public class MyHeap{
       pushDown(a1, a1.length, pushDownTests[i]);
       System.out.println(HeapHelp.toString(a1)+"\n");
     }
-
+*/
+/*
     System.out.println("\n\n-------Testing exp-------");
     System.out.println(exp(2, 4));//16
     System.out.println(exp(3, 3));//27
     System.out.println(exp(9, 0));//1
+*/
+
+    System.out.println("\n\n-------Testing heapify-------");
+    int seed, size;
+    if(args.length > 0){
+      seed = Integer.parseInt(args[0]);
+    }
+    else{
+      Random r = new Random();
+      seed = r.nextInt(1000);
+    }
+    Random rnd = new Random(seed);
+    System.out.println("Seed: "+seed);
+    if(args.length > 1){
+      size = Integer.parseInt(args[1]);
+    }
+    else{
+      size = Math.abs(rnd.nextInt(25) + 1);
+    }
+    System.out.println("Size: " + size);
+    int[] a2 = new int[size];
+    for (int i = 0; i < size; i++){
+      a2[i] = rnd.nextInt(100);
+    }
+    System.out.println("a2:\n"+HeapHelp.toString(a2));
+    heapify(a2);
+    System.out.println("a2:\n"+HeapHelp.toString(a2));
   }
 }
 
