@@ -32,53 +32,53 @@ public class MyHeap{
     //System.out.println("data[right]: "+data[right]);
     //System.out.println("Left: "+left);
     //System.out.println("Right: "+right);
-    System.out.println("\nIndex: "+index);
+    //System.out.println("\nIndex: "+index);
     //System.out.println("data[index]: "+data[index]);
     //check if parent is a leaf
     if (left >= size){
-      System.out.println("out of bounds: left\n");
+      //System.out.println("out of bounds: left\n");
       return;
     }
     //case 1: left greater than parent
     //System.out.println(left);
     //System.out.println(size);
     else if (data[left] > data[index]){
-      System.out.println("left greater than parent\n");
+      //System.out.println("left greater than parent\n");
       //case 1a: RIGHT IS NONEXISTENT OR LEFT IS GREATER OR EQUAL TO RIGHT
       if (right >= size || data[left]>=data[right]){
         int temp = data[left];
         data[left] = data[index];
         data[index] = temp;
-        System.out.println(HeapHelp.toString(data)+"\n");
+        //System.out.println(HeapHelp.toString(data)+"\n");
         pushDown(data, size, left);
       }
       //case 1b: RIGHT IS GREATER THAN ORTO LEFT
       else{
-        System.out.println("right and left greater than parent, right > left");
+        //System.out.println("right and left greater than parent, right > left");
         int temp = data[right];
         data[right] = data[index];
         data[index] = temp;
-        System.out.println(HeapHelp.toString(data)+"\n");
+        //System.out.println(HeapHelp.toString(data)+"\n");
         pushDown(data, size, right);
       }
     }
     //case 2: right is nonexistent
     else if (right >= size){
-      System.out.println("out of bounds: right\n");
+      //System.out.println("out of bounds: right\n");
       return;
     }
     //case 3: right is greater than parent
     else if (data[right]>data[index]){
-      System.out.println("right greater than parent\n");
+      //System.out.println("right greater than parent\n");
       int temp = data[right];
       data[right] = data[index];
       data[index] = temp;
-      System.out.println(HeapHelp.toString(data)+"\n");
+      //System.out.println(HeapHelp.toString(data)+"\n");
       pushDown(data, size, right);
     }
     //case 4: none are greater than parent
     else{
-      System.out.println("none are greater than parent\n");
+      //System.out.println("none are greater than parent\n");
     }
   }
   /*
@@ -119,9 +119,29 @@ public class MyHeap{
   //    - convert the array into a valid heap. [ should be O(n) ]
 
   public static void heapsort(int[] data){
-
+    heapify(data); //heapify first
+    int counter = 1;
+    for (int x = data.length; x > 0; x--) {
+      int temp = data[0]; //this is the max
+      data[0] = data[data.length-counter]; //replace the last element with max
+      data[data.length-counter] = temp;
+      pushDown(data,data.length-counter,0); //push down the former last element and make sure you decrease the "size"
+      counter++;
+    }
   }
   //- sort the array by converting it into a heap then removing the largest value n-1 times. [ should be O(nlogn) ]
+
+  public static String printArray(int[]ary){
+    String output = "{";
+    for (int i = 0; i < ary.length; i++){
+      output += ary[i];
+      if (i != ary.length - 1){
+        output += ", ";
+      }
+    }
+    return output + "}";
+  }
+
   public static void main(String[] args){
     int[] indices = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
     int[] a1 = {24, 9, 4, 8, 17, 6, 11, 6, 3, 19, 0, 1, 7, 39};
@@ -180,6 +200,7 @@ public class MyHeap{
     }
     else{
       size = Math.abs(rnd.nextInt(25) + 1);
+      //note to self: size cannot be >= 128  b/c HeapHelp.toString() stops working then
     }
     System.out.println("Size: " + size);
     int[] a2 = new int[size];
@@ -187,9 +208,18 @@ public class MyHeap{
       a2[i] = rnd.nextInt(100);
     }
     System.out.println("a2:\n"+HeapHelp.toString(a2));
-    heapify(a2);
-    System.out.println("a2:\n"+HeapHelp.toString(a2));
+    //heapify(a2);
+    //System.out.println("a2:\n"+HeapHelp.toString(a2));
+
+
+    System.out.println("\n\n-------Testing heapSort-------");
+    System.out.println(printArray(a2));
+    heapsort(a2);
+    System.out.println(HeapHelp.toString(a2));
+    System.out.println(printArray(a2));
   }
+
+  
 }
 
 //sample tree
