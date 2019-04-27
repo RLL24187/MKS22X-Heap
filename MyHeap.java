@@ -1,4 +1,5 @@
-import java.util.Random;
+//import java.util.Random;
+//import java.util.Arrays;
 public class MyHeap{
   //important notes
   /*
@@ -52,7 +53,7 @@ public class MyHeap{
         //System.out.println(HeapHelp.toString(data)+"\n");
         pushDown(data, size, left);
       }
-      //case 1b: RIGHT IS GREATER THAN ORTO LEFT
+      //case 1b: RIGHT IS GREATER THAN LEFT
       else{
         //System.out.println("right and left greater than parent, right > left");
         int temp = data[right];
@@ -77,9 +78,9 @@ public class MyHeap{
       pushDown(data, size, right);
     }
     //case 4: none are greater than parent
-    else{
+    //else{
       //System.out.println("none are greater than parent\n");
-    }
+    //}
   }
   /*
     - size  is the number of elements in the data array.
@@ -141,10 +142,11 @@ public class MyHeap{
     }
     return output + "}";
   }
-
+/*
   public static void main(String[] args){
     int[] indices = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
     int[] a1 = {24, 9, 4, 8, 17, 6, 11, 6, 3, 19, 0, 1, 7, 39};
+    */
     //          0   1  2  3  4   5  6  7  8  9  10 11 12  13
     //length 14
 /*
@@ -183,7 +185,7 @@ public class MyHeap{
     System.out.println(exp(3, 3));//27
     System.out.println(exp(9, 0));//1
 */
-
+/*
     System.out.println("\n\n-------Testing heapify-------");
     int seed, size;
     if(args.length > 0){
@@ -217,9 +219,44 @@ public class MyHeap{
     heapsort(a2);
     System.out.println(HeapHelp.toString(a2));
     System.out.println(printArray(a2));
-  }
+  }*/
 
-  
+  //Mr K's Driver!!!!
+  /*
+  public static void main(String[] args){
+    System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
+    int[]MAX_LIST = {1000000000,500,10};
+    for(int MAX : MAX_LIST){
+      for(int size = 31250; size < 2000001; size*=2){
+        long qtime=0;
+        long btime=0;
+        //average of 5 sorts.
+        for(int trial = 0 ; trial <=5; trial++){
+          int []data1 = new int[size];
+          int []data2 = new int[size];
+          for(int i = 0; i < data1.length; i++){
+            data1[i] = (int)(Math.random()*MAX);
+            data2[i] = data1[i];
+          }
+          long t1,t2;
+          t1 = System.currentTimeMillis();
+          heapsort(data2);
+          t2 = System.currentTimeMillis();
+          qtime += t2 - t1;
+          t1 = System.currentTimeMillis();
+          Arrays.sort(data1);
+          t2 = System.currentTimeMillis();
+          btime+= t2 - t1;
+          if(!Arrays.equals(data1,data2)){
+            System.out.println("FAIL TO SORT!");
+            System.exit(0);
+          }
+        }
+        System.out.println(size +"\t\t"+MAX+"\t"+1.0*qtime/btime);
+      }
+      System.out.println();
+    }
+  }*/
 }
 
 //sample tree
