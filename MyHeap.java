@@ -7,6 +7,7 @@ public class MyHeap{
   left child: 2n+1
   right child: 2n+2
   */
+  /*
   private static int height(int size){
     int height = 0;
     while (size>0){
@@ -22,7 +23,7 @@ public class MyHeap{
       temp *= base;
     }
     return temp;
-  }
+  }*/
 
   private static void pushDown(int[]data,int size,int index){
     //storing indices
@@ -111,7 +112,8 @@ public class MyHeap{
   */
 
   public static void heapify(int[] data){
-    int bound = exp(2, height(data.length) - 1) - 2;
+    //int bound = exp(2, height(data.length) - 1) - 2;
+    int bound = (data.length - 1)/2;
     //only need to pushDown the second to last, then third to last, and so on until you get to the top
     for (int i = bound; i >= 0; i--){
       pushDown(data, data.length, i);
@@ -222,7 +224,7 @@ public class MyHeap{
   }*/
 
   //Mr K's Driver!!!!
-  /*
+/*
   public static void main(String[] args){
     System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
     int[]MAX_LIST = {1000000000,500,10};
@@ -256,7 +258,8 @@ public class MyHeap{
       }
       System.out.println();
     }
-  }*/
+  }
+  */
 }
 
 //sample tree
